@@ -1,0 +1,33 @@
+[engine]
+# Engine we need to use. usually standard
+engine = "standard"
+# The migration where we need to go to.
+# - HEAD is a special name that represents the only sink in the migration graph.
+#   if there are multiple glboal sink, we raises an exception
+# - TAIL is a special name that represents the only source in the migration graph.
+# - ZERO is a special name that leads to the removal of the associated db
+target = "HEAD"
+    [engine.parameters]
+    # User-defined dictionary of values that will be injected as in to the migration engine
+    foo = "bar"
+
+[files]
+    [files.directory]
+        # directory where all the migrations are located
+        path = "migrations"
+        # function we use to determine which files should be included in the migration
+        consider_files_that = "lambda x: True"
+
+[database]
+    [database.connector]
+    module = "sqldb_migrations_ensurer.connector.postgresql"
+    class = "PostgreSQLConnector"
+
+    [database.parameters]
+    host = "127.0.0.1"
+    port = 5432
+    username = "root"
+    password = "root"
+
+
+
